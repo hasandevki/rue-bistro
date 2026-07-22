@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rue Cafe Bistro — Çayyolu, Ankara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=EB+Garamond:ital@1&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#17110F;
+    --panel:#1E1613;
+    --wine:#3B1620;
+    --brass:#C6A15B;
+    --brass-light:#E4C888;
+    --ember:#B3563B;
+    --ivory:#EFE7DA;
+    --taupe:#A8998A;
+    --line: rgba(198,161,91,0.22);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ivory);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--brass); color:#17110F; }
+
+  a{color:inherit; text-decoration:none;}
+
+  .eyebrow{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    letter-spacing:0.04em;
+    color:var(--brass-light);
+    font-size:1.05rem;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.05;
+  }
+
+  /* ---------- Texture background ---------- */
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 6vw;
+    background:linear-gradient(to bottom, rgba(23,17,15,0.92), rgba(23,17,15,0));
+  }
+  .brandmark{
+    font-family:'Fraunces', serif; font-weight:700; letter-spacing:0.03em;
+    font-size:1.15rem; color:var(--ivory);
+  }
+  .brandmark span{ color:var(--brass-light); }
+  nav ul{ list-style:none; display:flex; gap:2.4rem; }
+  nav a{
+    font-size:0.82rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--taupe);
+    transition:color .25s ease;
+    position:relative;
+  }
+  nav a:hover{ color:var(--brass-light); }
+  .nav-cta{
+    border:1px solid var(--brass); color:var(--brass-light) !important;
+    padding:9px 20px; border-radius:2px; font-size:0.78rem !important;
+  }
+  .menu-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding:120px 6vw 80px;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 20%, rgba(179,86,59,0.18), transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(59,22,32,0.6), transparent 70%),
+      var(--bg);
+  }
+  .hero-inner{ position:relative; z-index:3; max-width:760px; }
+
+  .plaque{
+    display:inline-block;
+    position:relative;
+    padding:2.6rem 3.2rem 2.2rem;
+    border:1px solid var(--brass);
+    box-shadow:
+      0 0 0 6px rgba(23,17,15,0.9),
+      0 0 0 7px rgba(198,161,91,0.35),
+      0 30px 60px -20px rgba(0,0,0,0.7);
+    background:linear-gradient(160deg, #2a211a, #1c1512 60%, #221a15);
+    margin-bottom:2.6rem;
+  }
+  .plaque::before, .plaque::after{
+    content:''; position:absolute; width:9px; height:9px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ecd8a3, #7a5b28 70%);
+    top:14px;
+  }
+  .plaque::before{ left:14px; }
+  .plaque::after{ right:14px; }
+  .plaque-no{
+    font-family:'EB Garamond', serif; font-style:italic; color:var(--taupe);
+    font-size:0.95rem; letter-spacing:0.08em; margin-bottom:0.4rem;
+  }
+  .plaque h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    color:var(--brass-light);
+    text-shadow:0 1px 0 rgba(0,0,0,0.4);
+    letter-spacing:0.01em;
+  }
+  .plaque .sub{
+    margin-top:0.7rem; font-family:'Work Sans', sans-serif; font-weight:500;
+    letter-spacing:0.32em; text-transform:uppercase; font-size:0.68rem; color:var(--ember);
+  }
+
+  .hero-tagline{
+    font-family:'EB Garamond', serif; font-style:italic;
+    font-size:1.35rem; color:var(--ivory); opacity:0.9;
+    max-width:520px; margin:0 auto 2.6rem;
+    line-height:1.5;
+  }
+
+  .cta-row{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    padding:14px 30px; border-radius:2px; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase;
+    transition:all .3s ease; display:inline-block;
+  }
+  .btn-primary{ background:var(--brass); color:#1c1512; font-weight:600; }
+  .btn-primary:hover{ background:var(--brass-light); transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--ivory); }
+  .btn-ghost:hover{ border-color:var(--brass); color:var(--brass-light); }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+    font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--taupe);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .scroll-cue .line{ width:1px; height:34px; background:linear-gradient(var(--brass), transparent); animation:pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ---------- Section shell ---------- */
+  section{ position:relative; padding:7rem 6vw; z-index:2; }
+  .section-head{ max-width:640px; margin-bottom:4rem; }
+  .section-head h2{ font-size:clamp(2rem, 3.4vw, 2.9rem); margin-top:0.6rem; color:var(--ivory); }
+  .rule{ width:56px; height:2px; background:var(--ember); margin:1.4rem 0; }
+
+  /* ---------- Features ---------- */
+  .features{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .feature-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.5rem; }
+  .feature{
+    padding:2.4rem 2rem; border:1px solid var(--line); background:rgba(23,17,15,0.4);
+    transition:transform .35s ease, border-color .35s ease;
+  }
+  .feature:hover{ transform:translateY(-6px); border-color:var(--brass); }
+  .feature svg{ width:42px; height:42px; margin-bottom:1.4rem; }
+  .feature h3{ font-size:1.35rem; color:var(--brass-light); margin-bottom:0.8rem; font-weight:600; }
+  .feature p{ color:var(--taupe); font-size:0.95rem; line-height:1.65; }
+
+  /* ---------- Menu highlight ---------- */
+  .menu-section{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:4rem; align-items:center; }
+  .menu-list{ list-style:none; }
+  .menu-list li{
+    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+    padding:1.15rem 0; border-bottom:1px dashed var(--line);
+  }
+  .menu-list li:last-child{ border-bottom:none; }
+  .menu-name{ font-family:'Fraunces', serif; font-size:1.15rem; color:var(--ivory); }
+  .menu-desc{ display:block; color:var(--taupe); font-size:0.85rem; margin-top:0.25rem; font-weight:300; }
+  .menu-price{ font-family:'EB Garamond', serif; font-style:italic; color:var(--brass-light); white-space:nowrap; }
+
+  .frame-art{
+    aspect-ratio:4/5; border:1px solid var(--brass); position:relative; overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(198,161,91,0.25), transparent 55%),
+      linear-gradient(160deg,#241b17,#150f0d 70%);
+  }
+  .frame-art svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+  /* ---------- Testimonials ---------- */
+  .quotes{ background:var(--wine); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .quote-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+  .quote-card{ padding:2rem 1.8rem; border:1px solid rgba(198,161,91,0.28); display:flex; flex-direction:column; }
+  .quote-stars{ color:var(--brass-light); font-size:0.9rem; letter-spacing:0.15em; margin-bottom:1rem; }
+  .quote-card p{ font-family:'EB Garamond', serif; font-style:italic; font-size:1.1rem; line-height:1.6; color:var(--ivory); margin-bottom:1.4rem; flex-grow:1; }
+  .quote-foot{ border-top:1px solid rgba(198,161,91,0.25); padding-top:1rem; }
+  .quote-name{ font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass-light); }
+  .quote-meta{ font-size:0.72rem; color:var(--taupe); margin-top:0.3rem; }
+  .quote-scores{ font-size:0.68rem; color:var(--taupe); margin-top:0.6rem; letter-spacing:0.03em; }
+
+  /* ---------- Gallery ---------- */
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+  .gallery-tile{
+    aspect-ratio:1; position:relative; overflow:hidden; border:1px solid var(--line);
+  }
+  .gallery-tile svg{ width:100%; height:100%; }
+  .gallery-tile .cap{
+    position:absolute; bottom:0; left:0; right:0; padding:0.8rem 1rem;
+    font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--brass-light);
+    background:linear-gradient(to top, rgba(23,17,15,0.9), transparent);
+  }
+
+  /* ---------- Location ---------- */
+  .location{ background:var(--panel); border-top:1px solid var(--line); }
+  .loc-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; }
+  .info-row{ display:flex; gap:1.1rem; padding:1.1rem 0; border-bottom:1px solid var(--line); }
+  .info-row:last-child{ border-bottom:none; }
+  .info-row svg{ width:22px; height:22px; flex-shrink:0; margin-top:2px; }
+  .info-row .label{ font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--taupe); margin-bottom:0.3rem; }
+  .info-row .value{ font-size:1.02rem; color:var(--ivory); }
+  .map-frame{ border:1px solid var(--brass); aspect-ratio:1/1; position:relative; overflow:hidden; }
+  .map-frame iframe{ width:100%; height:100%; border:0; filter:grayscale(0.4) contrast(1.05) brightness(0.9); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:3.5rem 6vw 2.5rem; text-align:center; border-top:1px solid var(--line); background:var(--bg);
+  }
+  footer .brandmark{ justify-content:center; display:inline-block; margin-bottom:1rem; }
+  .foot-links{ display:flex; gap:2rem; justify-content:center; margin-bottom:1.6rem; flex-wrap:wrap; }
+  .foot-links a{ font-size:0.8rem; color:var(--taupe); letter-spacing:0.06em; }
+  .foot-links a:hover{ color:var(--brass-light); }
+  .foot-note{ font-size:0.72rem; color:#6b5f54; letter-spacing:0.04em; }
+
+  [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width:860px){
+    nav ul{ display:none; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .menu-section{ grid-template-columns:1fr; }
+    .quote-grid{ grid-template-columns:1fr; }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+    .loc-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <div class="brandmark">RUE <span>CAFE BISTRO</span></div>
+  <nav>
+    <ul>
+      <li><a href="#konsept">Konsept</a></li>
+      <li><a href="#menu">Menü</a></li>
+      <li><a href="#yorumlar">Misafirlerimiz</a></li>
+      <li><a href="#konum">Konum</a></li>
+      <li><a class="nav-cta" href="tel:05304347010">Rezervasyon</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="plaque" data-reveal>
+      <div class="plaque-no">No. 9 · 2818. Cadde</div>
+      <h1>RUE CAFE<br>BISTRO</h1>
+      <div class="sub">Çayyolu — Ankara</div>
+    </div>
+    <p class="hero-tagline">Şehrin telaşı kapıda kalır. İçeride sıcak ışık, yavaş bir akşam ve iyi hazırlanmış bir fincan sizi bekler.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="tel:05304347010">Masa Ayırt</a>
+      <a class="btn btn-ghost" href="#menu">Menüyü Gör</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Aşağı Kaydır</span><span class="line"></span></div>
+</section>
+
+<section class="features" id="konsept">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Akşamın Ritmi</span>
+    <h2>Üç oda, tek his: yavaşlamak.</h2>
+    <div class="rule"></div>
+    <p style="color:var(--taupe); font-size:1.02rem; line-height:1.7; max-width:520px;">Rue Cafe Bistro, kalabalıktan uzaklaşıp kendine vakit ayırmak isteyenler için düşünüldü. Her köşesi farklı bir tempoya ayarlı.</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature" data-reveal>
+      <svg viewBox="0 0 48 48" fill="none" stroke="#C6A15B" stroke-width="1.4"><path d="M10 18h22v8a11 11 0 0 1-11 11 11 11 0 0 1-11-11v-8z"/><path d="M32 20h3a4 4 0 0 1 0 8h-3"/><path d="M14 8c1 2-1 3 0 5m6-5c1 2-1 3 0 5m6-5c1 2-1 3 0 5"/></svg>
+      <h3>Akşam Kahvesi</h3>
+      <p>Türk kahvesinden özel demleme filtre kahveye, gün batımından gece yarısına uzanan bir kahve ritüeli.</p>
+    </div>
+    <div class="feature" data-reveal>
+      <svg viewBox="0 0 48 48" fill="none" stroke="#C6A15B" stroke-width="1.4"><path d="M24 6v10"/><circle cx="24" cy="20" r="4"/><path d="M14 42c0-8 4-14 10-14s10 6 10 14"/><path d="M18 30c-3 2-4 5-4 9m20-9c3 2 4 5 4 9"/></svg>
+      <h3>Nargile &amp; VIP Odalar</h3>
+      <p>Özel sohbetler ve sakin buluşmalar için ayrılmış VIP odalarda, özenle hazırlanmış nargile keyfi.</p>
+    </div>
+    <div class="feature" data-reveal>
+      <svg viewBox="0 0 48 48" fill="none" stroke="#C6A15B" stroke-width="1.4"><rect x="8" y="14" width="32" height="22" rx="1"/><path d="M8 22h32M16 14v-4h16v4"/></svg>
+      <h3>Sunumlar</h3>
+      <p>Atıştırmalıktan tatlıya, her tabak masaya geldiği anda bir görsel deneyime dönüşecek şekilde hazırlanır.</p>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="menu">
+  <div>
+    <span class="eyebrow" data-reveal>Seçkiler</span>
+    <h2 data-reveal>Akşamdan Bir Kesit</h2>
+    <div class="rule" data-reveal></div>
+    <ul class="menu-list" data-reveal>
+      <li>
+        <div><span class="menu-name">Türk Kahvesi</span><span class="menu-desc">Közde kavrulmuş, bakır cezvede demlenir</span></div>
+        <span class="menu-price">120 ₺</span>
+      </li>
+      <li>
+        <div><span class="menu-name">El Yapımı Limonata</span><span class="menu-desc">Nane ve taze sıkım limon</span></div>
+        <span class="menu-price">140 ₺</span>
+      </li>
+      <li>
+        <div><span class="menu-name">Rue Nargile</span><span class="menu-desc">Günün özel tütün karışımı, VIP odada servis</span></div>
+        <span class="menu-price">450 ₺</span>
+      </li>
+      <li>
+        <div><span class="menu-name">Çikolatalı Sufle</span><span class="menu-desc">Sıcak servis, vanilyalı dondurma ile</span></div>
+        <span class="menu-price">220 ₺</span>
+      </li>
+      <li>
+        <div><span class="menu-name">Kahvaltı Tabağı</span><span class="menu-desc">Hafta sonları 11:00'dan itibaren</span></div>
+        <span class="menu-price">380 ₺</span>
+      </li>
+    </ul>
+    <p style="color:#6b5f54; font-size:0.78rem; margin-top:1.2rem;">*Fiyatlar örnek olarak hazırlanmıştır, güncel menü ile değiştirilebilir.</p>
+  </div>
+  <div class="frame-art" data-reveal>
+    <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3B1620"/>
+          <stop offset="100%" stop-color="#17110F"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="500" fill="url(#cup)"/>
+      <g stroke="#C6A15B" stroke-width="2" fill="none" opacity="0.85">
+        <path d="M130 230 h140 v70 a70 70 0 0 1 -140 0 z"/>
+        <path d="M270 245 h20 a20 20 0 0 1 0 40 h-20"/>
+        <path d="M150 210 q10 -20 0 -35 M185 210 q10 -20 0 -35 M220 210 q10 -20 0 -35" opacity="0.5"/>
+      </g>
+      <text x="200" y="420" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="20" fill="#E4C888">bir fincan, bir mola</text>
+    </svg>
+  </div>
+</section>
+
+<section class="quotes" id="yorumlar">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Misafirlerimizden</span>
+    <h2>Söylenenler</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="quote-grid">
+    <div class="quote-card" data-reveal>
+      <span class="quote-stars">★★★★★</span>
+      <p>"Arkadaşlarla sık sık geldiğimiz keyifli bir mekân. Ortamı rahat ve samimi, sohbet etmek için çok uygun. Hizmetleri hızlı ve çalışanlar oldukça ilgili. Ayaz Bey'in ilgisi ve güler yüzü ayrıca memnun ediyor. Yemekleri lezzetli, nargileyi de gayet güzel; her gelişimizde memnun kalıyoruz. Tavsiye ederim."</p>
+      <div class="quote-foot">
+        <span class="quote-name">E***r E.</span>
+        <div class="quote-meta">Google Yorumu · 5 ay önce</div>
+        <div class="quote-scores">Yemek 5/5 · Servis 5/5 · Ortam 5/5</div>
+      </div>
+    </div>
+    <div class="quote-card" data-reveal>
+      <span class="quote-stars">★★★★★</span>
+      <p>"Gerek yemekler gerek nargile konusunda gayet başarılı bir yer. Eşiniz ve dostunuzla gönül rahatlığıyla gelebileceğiniz bir cafe. Eşimle beraber tükettiğimiz nargilede bizimle ilgilenen Batuhan Bey'in ilgi ve alakasına teşekkür ediyoruz."</p>
+      <div class="quote-foot">
+        <span class="quote-name">Ş***n Ç.</span>
+        <div class="quote-meta">Google Yorumu · 1 ay önce</div>
+        <div class="quote-scores">Yemek 5/5 · Servis 5/5 · Ortam 5/5</div>
+      </div>
+    </div>
+    <div class="quote-card" data-reveal>
+      <span class="quote-stars">★★★★★</span>
+      <p>"İlgilerinden memnun kaldık. Menüleri çeşitliydi ve fiyatları da normal bir cafeninkinden çok fazla değildi. Ancak porsiyonlar kesinlikle fiyatlarını karşılayacak kadar yeterliydi. Hafta içi öğle saatlerini tercih ettik, sadece biz vardık; akşama doğru kalabalıklaşmaya başladı. Ekstra masa ücreti vermedik. Deneyimimizden oldukça keyif aldık. Emeğinize sağlık."</p>
+      <div class="quote-foot">
+        <span class="quote-name">I**l A.</span>
+        <div class="quote-meta">Google Yorumu · Local Guide · 1 yıl önce</div>
+        <div class="quote-scores">Yemek 4/5 · Servis 4/5 · Ortam 5/5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Mekândan</span>
+    <h2>Bir Bakış</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-tile" data-reveal>
+      <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#241b17"/><circle cx="100" cy="90" r="46" fill="none" stroke="#C6A15B" stroke-width="1.5"/><path d="M60 150h80" stroke="#C6A15B" stroke-width="1.5"/></svg>
+      <div class="cap">Salon</div>
+    </div>
+    <div class="gallery-tile" data-reveal>
+      <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#1c1512"/><path d="M50 60h100v90H50z" fill="none" stroke="#C6A15B" stroke-width="1.5"/><path d="M50 90h100" stroke="#C6A15B" stroke-width="1"/></svg>
+      <div class="cap">VIP Oda</div>
+    </div>
+    <div class="gallery-tile" data-reveal>
+      <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#2a1a16"/><path d="M100 40v50M80 90h40M100 90c0 40-30 40-30 70h60c0-30-30-30-30-70z" fill="none" stroke="#C6A15B" stroke-width="1.5"/></svg>
+      <div class="cap">Nargile Köşesi</div>
+    </div>
+    <div class="gallery-tile" data-reveal>
+      <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#221a15"/><path d="M60 130h80l-10-60H70z" fill="none" stroke="#C6A15B" stroke-width="1.5"/></svg>
+      <div class="cap">Teras</div>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="konum">
+  <div class="loc-grid">
+    <div>
+      <span class="eyebrow" data-reveal>Bizi Bulun</span>
+      <h2 data-reveal>Çayyolu, Ankara</h2>
+      <div class="rule" data-reveal></div>
+      <div data-reveal>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C6A15B" stroke-width="1.5"><path d="M12 22s7-7.4 7-13a7 7 0 1 0-14 0c0 5.6 7 13 7 13z"/><circle cx="12" cy="9" r="2.6"/></svg>
+          <div><div class="label">Adres</div><div class="value">Prof. Dr. Ahmet Taner Kışlalı Mah. 2818. Cad. No:9, Çayyolu / Çankaya, Ankara</div></div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C6A15B" stroke-width="1.5"><path d="M4 4h4l2 6-3 2a14 14 0 0 0 6 6l2-3 6 2v4a2 2 0 0 1-2 2C10 23 1 14 1 6a2 2 0 0 1 2-2z"/></svg>
+          <div><div class="label">Rezervasyon</div><div class="value">0530 434 70 10 &nbsp;/&nbsp; 0312 240 47 48</div></div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C6A15B" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><div class="label">Açık</div><div class="value">Her gün 11:00 – 01:00</div></div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C6A15B" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/></svg>
+          <div><div class="label">Instagram</div><div class="value">@ruecafebistro</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="map-frame" data-reveal>
+      <iframe loading="lazy" src="https://www.google.com/maps?q=Rue+Cafe+Bistro+Cayyolu+Ankara&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brandmark">RUE <span>CAFE BISTRO</span></div>
+  <div class="foot-links">
+    <a href="#konsept">Konsept</a>
+    <a href="#menu">Menü</a>
+    <a href="#yorumlar">Misafirlerimiz</a>
+    <a href="#konum">Konum</a>
+    <a href="https://instagram.com/ruecafebistro" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="foot-note">© 2026 Rue Cafe Bistro · Çayyolu, Ankara</div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=> io.observe(el));
+
+  document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+</script>
+
+</body>
+</html>
